@@ -2,9 +2,10 @@
 import os
 
 import jwt
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jwt import PyJWKClient
+from backend.app.audit import record_security_event
 
 KEYCLOAK_URL = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
 REALM = "researchai"
@@ -56,11 +57,23 @@ def get_current_user(
             detail="Authentication service unavailable",
         )
 
+
 def require_roles(*allowed_roles: str):
-    def check_roles(user: dict = Depends(get_current_user)):
+    def check_roles(
+        request: Request,
+        user: dict = Depends(get_current_user),
+    ):
         user_roles = set(user["roles"])
 
         if not user_roles.intersection(allowed_roles):
+            record_security_event(
+                user=user,
+                action="access_denied",
+                resource=request.url.path,
+                status="denied",
+                error_code="403",
+            )
+
             raise HTTPException(
                 status_code=403,
                 detail="Insufficient permissions",
