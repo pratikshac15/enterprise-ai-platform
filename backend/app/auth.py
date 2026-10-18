@@ -7,11 +7,28 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jwt import PyJWKClient
 from backend.app.audit import record_security_event
 
-KEYCLOAK_URL = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
-REALM = "researchai"
+
+# Public Keycloak URL used in JWT issuer validation
+KEYCLOAK_URL = os.getenv(
+    "KEYCLOAK_URL",
+    "http://localhost:8080",
+)
+
+REALM = os.getenv("KEYCLOAK_REALM", "researchai")
 
 ISSUER = f"{KEYCLOAK_URL}/realms/{REALM}"
-JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
+
+# Internal address used to retrieve Keycloak signing keys
+KEYCLOAK_INTERNAL_URL = os.getenv(
+    "KEYCLOAK_INTERNAL_URL",
+    KEYCLOAK_URL,
+)
+
+JWKS_URL = (
+    f"{KEYCLOAK_INTERNAL_URL}/realms/{REALM}"
+    "/protocol/openid-connect/certs"
+)
+
 
 # We'll configure this audience in Keycloak before testing.
 API_AUDIENCE = "researchai-api"

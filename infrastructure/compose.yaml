@@ -1,3 +1,4 @@
+
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.4.0
@@ -12,5 +13,25 @@ services:
       - keycloak_data:/opt/keycloak/data
     restart: unless-stopped
 
+  backend:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    image: researchai-backend:dev
+    container_name: researchai-backend
+    environment:
+      KEYCLOAK_URL: http://localhost:8080
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080
+      OLLAMA_URL: http://host.docker.internal:11434
+      AUDIT_DB_PATH: /app/backend/data/audit.db
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - backend_data:/app/backend/data
+    depends_on:
+      - keycloak
+    restart: unless-stopped
+
 volumes:
   keycloak_data:
+  backend_data:
