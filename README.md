@@ -176,6 +176,9 @@ The included Docker Compose configuration uses Keycloak development mode. Additi
 
 Screenshots of the following interfaces can be added under `docs/screenshots/`:
 
+### Login
+![Login](docs/screenshots/Login_page.png)
+
 ### AI Chat
 ![AI Chat](docs/screenshots/AI_Chat.png)
 
@@ -188,8 +191,6 @@ Screenshots of the following interfaces can be added under `docs/screenshots/`:
 ### Security Events
 ![Security Events](docs/screenshots/Security_Events.png)
 
-### Login
-![Login](docs/screenshots/Login_page.png)
 
 ## Future Improvements
 
