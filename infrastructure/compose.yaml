@@ -6,7 +6,7 @@ services:
     command: start-dev
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: local-dev-admin-change-me
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:?Set KC_BOOTSTRAP_ADMIN_PASSWORD in infrastructure/.env}
     ports:
       - "127.0.0.1:8080:8080"
     volumes:
