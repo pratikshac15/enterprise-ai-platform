@@ -176,12 +176,20 @@ The included Docker Compose configuration uses Keycloak development mode. Additi
 
 Screenshots of the following interfaces can be added under `docs/screenshots/`:
 
-- ResearchAI login
-- AI chat
-- Multi-model comparison
-- Administrator dashboard
-- Usage analytics
-- Security events
+### AI Chat
+![AI Chat](docs/screenshots/AI_Chat.png)
+
+### Model Comparison
+![Model Comparison](docs/screenshots/Model_Comparison.png)
+
+### Admin Dashboard
+![Admin Dashboard](docs/screenshots/Admin_Dashboard.png)
+
+### Security Events
+![Security Events](docs/screenshots/Security_Events.png)
+
+### Login
+![Login](docs/screenshots/Login_page.png)
 
 ## Future Improvements
 
@@ -194,3 +202,4 @@ Screenshots of the following interfaces can be added under `docs/screenshots/`:
 ## Project Purpose
 
 ResearchAI demonstrates the integration of full-stack software engineering, local generative AI, identity and access management, API security, observability, and containerized infrastructure into a unified enterprise-style AI platform.
+
